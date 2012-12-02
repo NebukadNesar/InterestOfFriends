@@ -1,20 +1,9 @@
 package models;
 
-public class Books {
-	
-	private String name;
-	
-	public Books() {
-		// TODO Auto-generated constructor stub
-	}
+import play.db.jpa.Model;
 
-	public String getName() {
-		return name;
-	}
+public class Books extends Model{
 
-	public void setName(String name) {
-		this.name = name;
-	}
 	
 	
 }
