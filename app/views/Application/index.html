@@ -1,4 +1,32 @@
-#{extends 'main.html' /}
-#{set title:'Home' /}
+#{extends 'main.html' /} #{set title:'Home' /}
+<a href="/">Reload This Frame</a>
+<br />
+<br />
+Hello ${facebookName}!
 
-#{welcome /}
+<h1>Friend List</h1>
+<ul>
+	#{list items:friendList, as:'oneFriend' }
+	<li>${oneFriend.raw()}</li> #{/list}
+</ul>
+
+
+
+#{set 'moreScripts'}
+<script type="text/javascript" charset="utf-8">
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId : '${facebookApplicationID}',
+			cookie : true,
+			status : true,
+			xfbml : false
+		});
+		FB.Canvas.setAutoResize();
+	};
+	$("<div id='fb-root'></div>").appendTo('body');
+	var e = document.createElement('script');
+	e.src = document.location.protocol + '//connect.facebook.net/tr_TR/all.js';
+	e.async = true;
+	document.getElementById('fb-root').appendChild(e);
+</script>
+#{/set}
