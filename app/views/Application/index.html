@@ -5,18 +5,14 @@
 
 Hello ${facebookName}!
 <h1>Likes</h1>
+<a href="@{Application.books()}">amk</a>
 
-<iframe width="750px" height="700px">
-
-	<ul>
-		#{list items:csdata, as:'oneFriend' }
-		<li>${oneFriend.getIds()}
-		<img src=${oneFriend.getUrl()}  height="42" width="42"/>
-	</li> 
-	#{/list}
+<ul>
+	#{list items:csdata, as:'oneFriend' }
+	<li>${oneFriend.getIds()} <img src=${oneFriend.getUrl()}
+		height="42" width="42" />
+	</li> #{/list}
 </ul>
-
-</iframe>
 > #{set 'moreScripts'}
 <script type="text/javascript" charset="utf-8">
 	window.fbAsyncInit = function() {

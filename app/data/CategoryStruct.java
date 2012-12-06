@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import play.data.validation.Unique;
 import play.db.jpa.Model;
 
-
 @Entity
 public class CategoryStruct extends Model {
 
@@ -14,6 +13,7 @@ public class CategoryStruct extends Model {
 	private String date;
 	private String ids;
 	private String url;
+	private int rate;
 
 	/**
 	 * 
@@ -22,12 +22,13 @@ public class CategoryStruct extends Model {
 	 * @param date
 	 * @param id
 	 */
-	public CategoryStruct(String name, String category, String date, String id,String url) {
+	public CategoryStruct(String name, String category, String date, String id,
+			String url ,int rate) {
 		this.category = category;
 		this.date = date;
 		this.ids = id;
 		this.name = name;
-		this.url=url;
+		this.url = url;
 	}
 
 	public String getName() {
@@ -61,7 +62,7 @@ public class CategoryStruct extends Model {
 	public void setIds(String id) {
 		this.ids = id;
 	}
-	
+
 	public String getUrl() {
 		return url;
 	}
@@ -69,10 +70,20 @@ public class CategoryStruct extends Model {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 	
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+
 	@Override
 	public String toString() {
-		return "\n\tData: "+getName()+","+getCategory()+","+getDate()+","+getId()+" "+getUrl();
+		return "\n\tData: " + getName() + "," + getCategory() + "," + getDate()
+				+ "," + getId() + " " + getUrl()+""+getRate();
 	}
 
 }

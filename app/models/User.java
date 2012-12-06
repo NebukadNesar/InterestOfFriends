@@ -1,7 +1,10 @@
 package models;
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 import play.db.jpa.Model;
 
@@ -9,6 +12,9 @@ import play.db.jpa.Model;
 public class User extends Model {
 	@Column(unique = true) 
 	public String facebookID;
+	
+	
+	
 	
 	public User(String facebookID) {
 	  this.facebookID = facebookID;
