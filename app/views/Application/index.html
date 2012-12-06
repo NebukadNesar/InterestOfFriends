@@ -2,19 +2,22 @@
 <a href="/">Reload This Frame</a>
 <br />
 <br />
+
 Hello ${facebookName}!
-<img src=""/>
-<h1>Friend List</h1>
-<ul>
-	#{list items:csdata, as:'oneFriend' }
-	<li>${oneFriend.getIds()},${oneFriend.getUrl()}
-		<img src=""+${oneFriend.getUrl()}  height="42" width="42"/>
+<h1>Likes</h1>
+
+<iframe width="750px" height="700px">
+
+	<ul>
+		#{list items:csdata, as:'oneFriend' }
+		<li>${oneFriend.getIds()}
+		<img src=${oneFriend.getUrl()}  height="42" width="42"/>
 	</li> 
 	#{/list}
 </ul>
 
-
-#{set 'moreScripts'}
+</iframe>
+> #{set 'moreScripts'}
 <script type="text/javascript" charset="utf-8">
 	window.fbAsyncInit = function() {
 		FB.init({
@@ -30,6 +33,5 @@ Hello ${facebookName}!
 	e.src = document.location.protocol + '//connect.facebook.net/tr_TR/all.js';
 	e.async = true;
 	document.getElementById('fb-root').appendChild(e);
-	
 </script>
 #{/set}

@@ -56,7 +56,7 @@ public class Application extends FBController {
 				String userlink = "" + je2.getAsJsonObject().get("link");
 				userlink = userlink.replace("\"", "");
 				JsonElement je3 = FBUtil.getInstance().executeGraphRequest(
-						username + "/movies", oauthToken);
+						username + "/likes", oauthToken);
 				System.out.println(je3);
 				if (je3 != null) {
 					JsonArray jarData = je3.getAsJsonObject().get("data")
@@ -74,7 +74,7 @@ public class Application extends FBController {
 								date = joObj.get("created_time").getAsString();
 							if (joObj.get("id") != null){
 								id = joObj.get("id").getAsString();
-								url="http://www.facebook.com/"+id+"?sk=photos_stream";
+								url="http://graph.facebook.com/"+id+"/picture";
 							}	
 							if (csdata.contains(id) == false)
 								csdata.add(new CategoryStruct(name,category,date,id,url));
@@ -100,4 +100,8 @@ public class Application extends FBController {
 		csdata.toString();
 		render(facebookApplicationID, facebookName, friendList, csdata);
 	}
+	
+	
+	
+	
 }
