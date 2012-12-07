@@ -12,27 +12,58 @@ import play.db.jpa.Model;
 
 @Entity
 public class User extends Model {
-	@Column(unique = true) 
+	@Column(unique = true)
 	public String facebookID;
-	
-	
+	public String userName;
+	public String piclink;
+
 	@ManyToMany
-	public List<Books> books ;
-	
-	
-	public User(String facebookID) {
-	  this.facebookID = facebookID;
-  }
+	public List<Books> books;
+
+	public User(String facebookID,String userName,String piclink) {
+		this.facebookID = facebookID;
+		this.piclink=piclink;
+		this.userName=userName;
+	}
 
 	public String getFacebookID() {
-  	return facebookID;
-  }
+		return facebookID;
+	}
 
 	public void setFacebookID(String facebookID) {
-  	this.facebookID = facebookID;
-  }
-	
+		this.facebookID = facebookID;
+	}
+
 	public static User getByFacebookID(String facebookID) {
 		return User.find("facebookID = ? ", facebookID).first();
 	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPiclink() {
+		return piclink;
+	}
+
+	public void setPiclink(String piclink) {
+		this.piclink = piclink;
+	}
+
+	public List<Books> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Books> books) {
+		this.books = books;
+	}
+	@Override
+	public String toString() {
+		return "USER: "+facebookID+","+userName+","+piclink;
+	}
+
 }

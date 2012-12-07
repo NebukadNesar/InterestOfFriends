@@ -81,9 +81,5 @@ public class Books extends Model {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	
-	
-	
 	
 }
