@@ -1,6 +1,14 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+
+
 	<ul>
 		#{list items:csdata, as:'oneFriend' }
 		<li>${oneFriend.getIds()} ,  ${oneFriend.getName()} ,  ${oneFriend.getRate()} <img src=${oneFriend.getUrl()}
 			height="42" width="42" />
 		</li> #{/list}
 	</ul>
+	
+	
+	

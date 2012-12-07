@@ -160,11 +160,12 @@ public class Application extends FBController {
 						CategoryStruct csStruct = new CategoryStruct(name,
 								category, date, id, url, 0);
 						int f = isMatch(csdata, csStruct);
-						if (f == -1)
+						if (f == -1){
 							csdata.add(csStruct);
+							csStruct.save();}
 						else {
 							csdata.get(f).setRate(csdata.get(f).getRate() + 1);
-							System.out.println(csdata.get(f).getRate());
+//							System.out.println(csdata.get(f).getRate());
 						}
 
 					}
