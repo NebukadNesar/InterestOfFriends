@@ -5,7 +5,7 @@
 # Home page
 GET      /                                       Application.index
 POST     /                                       Application.index
-GET 	/book									 Application.books
+GET 	/books									 Application.books
 
 
 

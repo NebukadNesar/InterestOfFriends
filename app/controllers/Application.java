@@ -126,12 +126,14 @@ public class Application extends FBController {
 			JsonObject jo = null;
 			for (int i = 0; i < ja.size(); i++) {
 				jo = ja.get(i).getAsJsonObject();
-				JsonElement je2 = FBUtil.getInstance().executeGraphRequest(
-						"/" + jo.get("id").getAsString(), oauthToken);
-				String username = "" + je2.getAsJsonObject().get("username");
-				username = username.replace("\"", "");
+				System.out.println(jo);
+				String username = jo.get("name").getAsString();
+				String userid = jo.get("id").getAsString();
+				String userpic = "http://graph.facebook.com/" + userid
+						+ "/picture";
+
 				JsonElement je3 = FBUtil.getInstance().executeGraphRequest(
-						username + "/books", oauthToken);
+						userid + "/books", oauthToken);
 
 				if ((je3 != null) && (je3.isJsonObject())
 						&& (je3.getAsJsonObject().has("data"))) {
@@ -144,7 +146,9 @@ public class Application extends FBController {
 					JsonArray jarData = je3.getAsJsonObject().get("data")
 							.getAsJsonArray();
 
+					List<Books> books = new ArrayList<Books>();
 					for (int t = 0; t < jarData.size(); t++) {
+						System.out.println(jarData);
 						joObj = jarData.get(t).getAsJsonObject();
 						if (joObj.get("name") != null)
 							name = joObj.get("name").getAsString();
@@ -157,22 +161,36 @@ public class Application extends FBController {
 							url = "http://graph.facebook.com/" + id
 									+ "/picture";
 						}
+
 						CategoryStruct csStruct = new CategoryStruct(name,
 								category, date, id, url, 0);
+						// aynı olanlari db ye kaydetmeden once kontrol etmemiz
+						// lazim
+						// eledigimiz kitaplarida db de olan kitaplara refere
+						// etmemiz lazim
+						// to calculate the likes count.
+
+						Books book = new Books(id, "", name, "", 0);
+						
+						if (books.contains(id) == false) {
+							books.add(book);
+							book.save();
+						}
+
 						int f = isMatch(csdata, csStruct);
-						if (f == -1){
+						if (f == -1) {
 							csdata.add(csStruct);
-							csStruct.save();}
-						else {
+							csStruct.save();
+						} else {
 							csdata.get(f).setRate(csdata.get(f).getRate() + 1);
-//							System.out.println(csdata.get(f).getRate());
 						}
 
 					}
-
+					new User(userid, username, userpic, books).save();
 				}
 
 			}
+			getBooks();
 
 		}
 		String facebookApplicationID = Play.configuration
@@ -181,6 +199,19 @@ public class Application extends FBController {
 
 	}
 
+	public static void getBooks(){
+		System.out.println("Get Books");
+		System.out.println(Books.getAllBooks());
+	}
+	
+	
+	
+	/**
+	 * 
+	 * @param list
+	 * @param Struct
+	 * @return
+	 */
 	private static int isMatch(List<CategoryStruct> list, CategoryStruct Struct) {
 
 		if (list == null)

@@ -15,6 +15,7 @@ import play.db.jpa.Model;
 public class Books extends Model {
 
 	@Lob
+	public String idd;
 	public String content;
 	public String title;
 	public String author;
@@ -26,13 +27,28 @@ public class Books extends Model {
 	@ManyToOne
     public User user;
 	
-	public Books(String content, String title, String author, double rate) {
+	public Books(String idd,String content, String title, String author, double rate) {
 		super();
+		this.idd=idd;
 		this.content = content;
 		this.title = title;
 		this.author = author;
 		this.rate = rate;
 	}
+	
+	public static List<Books> getAllBooks(){
+		return Books.findAll();
+	}
+	
+	public String getIdd() {
+		return idd;
+	}
+
+
+	public void setIdd(String idd) {
+		this.idd = idd;
+	}
+
 
 	public String getContent() {
 		return content;

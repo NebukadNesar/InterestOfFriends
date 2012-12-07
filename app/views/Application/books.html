@@ -1,14 +1,12 @@
-#{extends 'main.html' /}
-#{set title:'Home' /}
+#{extends 'main.html' /} #{set title:'Home' /} 
+#{if csdata}
 
+<ul>
+	#{list items:csdata, as:'oneFriend' }
+	<li>${oneFriend.getIds()} , ${oneFriend.getName()} ,
+		${oneFriend.getRate()} <img src=${oneFriend.getUrl()} height="42"
+		width="42" />
+	</li> #{/list}
+</ul>
+#{/if}
 
-
-	<ul>
-		#{list items:csdata, as:'oneFriend' }
-		<li>${oneFriend.getIds()} ,  ${oneFriend.getName()} ,  ${oneFriend.getRate()} <img src=${oneFriend.getUrl()}
-			height="42" width="42" />
-		</li> #{/list}
-	</ul>
-	
-	
-	

@@ -20,10 +20,16 @@ public class User extends Model {
 	@ManyToMany
 	public List<Books> books;
 
-	public User(String facebookID,String userName,String piclink) {
+	public User(String facebookID,String userName,String piclink,List<Books> books) {
 		this.facebookID = facebookID;
 		this.piclink=piclink;
 		this.userName=userName;
+		this.books=books;
+	}
+
+	public User(String user_id) {
+		// TODO Auto-generated constructor stub
+		this.facebookID=user_id;
 	}
 
 	public String getFacebookID() {
@@ -61,6 +67,7 @@ public class User extends Model {
 	public void setBooks(List<Books> books) {
 		this.books = books;
 	}
+	
 	@Override
 	public String toString() {
 		return "USER: "+facebookID+","+userName+","+piclink;
