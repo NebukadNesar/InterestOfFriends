@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import play.db.jpa.JPABase;
 import play.db.jpa.Model;
 
 @Entity
@@ -17,7 +18,7 @@ public class User extends Model {
 	public String userName;
 	public String piclink;
 
-	@ManyToMany
+	@ManyToMany(mappedBy="User")
 	public List<Books> books;
 
 	public User(String facebookID,String userName,String piclink,List<Books> books) {
@@ -31,7 +32,11 @@ public class User extends Model {
 		// TODO Auto-generated constructor stub
 		this.facebookID=user_id;
 	}
-
+	
+	public static List<User> getAllUsers(){
+		return User.findAll();
+	}
+	
 	public String getFacebookID() {
 		return facebookID;
 	}
@@ -39,7 +44,7 @@ public class User extends Model {
 	public void setFacebookID(String facebookID) {
 		this.facebookID = facebookID;
 	}
-
+	
 	public static User getByFacebookID(String facebookID) {
 		return User.find("facebookID = ? ", facebookID).first();
 	}
@@ -70,7 +75,13 @@ public class User extends Model {
 	
 	@Override
 	public String toString() {
-		return "USER: "+facebookID+","+userName+","+piclink;
+		String books = "";
+		
+		for(Books b:this.books){
+			books+=":"+b.getIdd()+","+b.getTitle()+"\n";
+		}
+		
+		return "USER: "+facebookID+","+userName+","+piclink+" "+books;
 	}
 
 }

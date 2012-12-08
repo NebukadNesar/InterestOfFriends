@@ -148,7 +148,6 @@ public class Application extends FBController {
 
 					List<Books> books = new ArrayList<Books>();
 					for (int t = 0; t < jarData.size(); t++) {
-						System.out.println(jarData);
 						joObj = jarData.get(t).getAsJsonObject();
 						if (joObj.get("name") != null)
 							name = joObj.get("name").getAsString();
@@ -186,10 +185,14 @@ public class Application extends FBController {
 						}
 
 					}
-					new User(userid, username, userpic, books).save();
+					//System.out.println(userid+"; "+username+" ; "+userpic+" ");
+					User user = new User(userid, username, userpic, books); 
+					System.out.println(user.toString());
+					user.save();
 				}
 
 			}
+			getUsers();
 			getBooks();
 
 		}
@@ -204,7 +207,10 @@ public class Application extends FBController {
 		System.out.println(Books.getAllBooks());
 	}
 	
-	
+	public static void getUsers(){
+		System.out.println("Get Users");
+		System.out.println(User.getAllUsers());
+	}
 	
 	/**
 	 * 
